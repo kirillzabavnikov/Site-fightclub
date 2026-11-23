@@ -1,0 +1,200 @@
+<!--
+  ШАБЛОН СТРАНИЦЫ НАПРАВЛЕНИЯ. Для другого направления поменяйте:
+  название и --len (число букв), подзаголовок, фото, факты, клубы, описание,
+  видео (YouTube ID), галерею, тренеров, FAQ, статьи и активный пункт в «Других направлениях».
+-->
+<main>
+<section class="me-dhero" aria-labelledby="me-dhero-title">
+  <img class="me-dhero__bg" src="https://static.tildacdn.com/tild3764-3636-4438-b137-383166613438/IMG_9567.jpg" alt="" fetchpriority="high">
+  <div class="me-dhero__shade" aria-hidden="true"></div>
+  <div class="me-wrap me-dhero__in">
+    <nav class="me-crumbs" aria-label="Навигация" data-enter>
+      <a href="/">Главная</a><span aria-hidden="true">/</span><a href="/classes">Направления</a><span aria-hidden="true">/</span><span aria-current="page">Самбо</span>
+    </nav>
+    <p class="me-dhero__tag" data-enter>Самый популярный вид борьбы в России</p>
+    <h1 class="me-dhero__title" id="me-dhero-title" style="--len:5"><span data-me-letters>Самбо</span></h1>
+    <div class="me-dhero__row" data-enter>
+      <dl class="me-facts">
+        <div><dt>Статус</dt><dd>Олимпийский вид спорта</dd></div>
+        <div><dt>Возраст</dt><dd>с 4 лет</dd></div>
+        <div><dt>Клубы</dt><dd><a href="/club-sav">Савеловский</a>, <a href="/club-chertanovo">Чертаново</a></dd></div>
+      </dl>
+      <a class="me-btn me-btn--lg" href="#popup:lead">Бесплатное занятие <svg aria-hidden="true"><use href="#me-i-arrow"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<nav class="me-subnav" aria-label="Разделы страницы" data-me-subnav>
+  <div class="me-wrap me-subnav__in">
+    <a href="#schedule">Расписание</a>
+    <a href="#team">Тренеры</a>
+    <a href="#media">Видео</a>
+    <a href="#info">История направления</a>
+    <a href="#faq">Ответы на вопросы</a>
+    <a class="me-btn me-subnav__cta" href="#popup:lead">Записаться</a>
+  </div>
+</nav>
+
+<section class="me-section me-about" aria-label="О направлении">
+  <div class="me-wrap me-about__grid">
+    <h2 class="me-h2 me-reveal">О направлении</h2>
+    <div class="me-about__text">
+      <p class="me-about__big me-reveal">Самбо учит самым действенным способам защитить себя и близких без использования дополнительных средств.</p>
+      <p class="me-reveal">Самбо относится к самому популярному во всём мире виду спорта. Этот вид единоборств соединил в себе все самые необходимые приёмы для защиты, которые были взяты из других боевых искусств.</p>
+      <p class="me-reveal">Но самбо — это не только способ защитить себя, это ещё и школа самоконтроля и дисциплины, воспитание характера и силы воли.</p>
+    </div>
+  </div>
+</section>
+
+<section class="me-section me-section--tight me-sched" id="schedule" aria-labelledby="me-sched-title">
+  <div class="me-wrap me-sched__in">
+    <h2 class="me-h3 me-reveal" id="me-sched-title">Расписание занятий по самбо</h2>
+    <p class="me-muted me-reveal">Группы по возрасту и уровню подготовки в каждом клубе.</p>
+    <a class="me-btn me-btn--ghost me-reveal" href="/schedule">Смотреть расписание <svg aria-hidden="true"><use href="#me-i-arrow"/></svg></a>
+  </div>
+</section>
+
+<section class="me-section me-media" id="media" aria-labelledby="me-media-title" data-me-rail-wrap>
+  <div class="me-wrap">
+    <div class="me-section__head">
+      <h2 class="me-h2 me-reveal" id="me-media-title">Видео и фото</h2>
+    </div>
+    <div class="me-videos">
+      <button class="me-video me-reveal" type="button" data-yt="VQ7Gz7GIwnU" aria-label="Смотреть видео 1">
+        <img src="https://i.ytimg.com/vi/VQ7Gz7GIwnU/hqdefault.jpg" alt="" loading="lazy">
+        <span class="me-video__play"><svg aria-hidden="true"><use href="#me-i-play"/></svg></span>
+      </button>
+      <button class="me-video me-reveal" style="--d:1" type="button" data-yt="5Zq7uNu3qVI" aria-label="Смотреть видео 2">
+        <img src="https://i.ytimg.com/vi/5Zq7uNu3qVI/hqdefault.jpg" alt="" loading="lazy">
+        <span class="me-video__play"><svg aria-hidden="true"><use href="#me-i-play"/></svg></span>
+      </button>
+    </div>
+    <ul class="me-gallery">
+      <li class="me-reveal"><img src="https://static.tildacdn.com/tild3438-3362-4233-a438-613164353632/IMG_9645.jpg" alt="Соревнования по самбо в клубе" loading="lazy"></li>
+      <li class="me-reveal" style="--d:1"><img src="https://static.tildacdn.com/tild6633-3636-4166-b935-323637356332/IMG_9667.jpg" alt="Схватка самбистов" loading="lazy"></li>
+      <li class="me-reveal" style="--d:2"><img src="https://static.tildacdn.com/tild3762-3161-4664-b137-326235336537/IMG_9613.jpg" alt="Судья и борцы на ковре" loading="lazy"></li>
+      <li class="me-reveal" style="--d:3"><img src="https://static.tildacdn.com/tild3764-3636-4438-b137-383166613438/IMG_9567.jpg" alt="Команда юных самбистов" loading="lazy"></li>
+    </ul>
+  </div>
+</section>
+
+<section class="me-section me-dteam" id="team" aria-labelledby="me-dteam-title">
+  <div class="me-wrap">
+    <div class="me-section__head">
+      <h2 class="me-h2 me-reveal" id="me-dteam-title">Тренеры</h2>
+      <a class="me-link me-reveal" href="/team">Все тренеры <svg aria-hidden="true"><use href="#me-i-arrow"/></svg></a>
+    </div>
+    <ul class="me-dteam__grid">
+      <li class="me-coach me-reveal">
+        <div class="me-coach__photo"><img src="https://static.tildacdn.com/tild3332-3364-4532-b335-616337653161/photo.png" alt="Заур Халилов" loading="lazy"></div>
+        <p class="me-coach__disc">Самбо, Дзюдо</p>
+        <h3 class="me-coach__name">Заур Халилов</h3>
+        <p class="me-coach__about">МС по дзюдо, МС по самбо. Чемпион Москвы. Многократный призёр и участник турниров класса А. Тренерский стаж более 20 лет.</p>
+        <div class="me-coach__foot"><a class="me-coach__club" href="/club-chertanovo"><svg aria-hidden="true"><use href="#me-i-pin"/></svg>Чертаново</a><a class="me-btn" href="#popup:lead">Записаться</a></div>
+      </li>
+      <li class="me-coach me-reveal" style="--d:1">
+        <div class="me-coach__photo"><img src="https://static.tildacdn.com/tild6261-3839-4266-b863-313862313130/_4.png" alt="Александр Горшков" loading="lazy"></div>
+        <p class="me-coach__disc">Самбо, Боевое самбо, ММА</p>
+        <h3 class="me-coach__name">Александр Горшков</h3>
+        <p class="me-coach__about">КМС по боевому самбо. Участник и призёр всероссийских турниров по самбо. Двукратный призёр Москвы по боевому самбо.</p>
+        <div class="me-coach__foot"><a class="me-coach__club" href="/club-chertanovo"><svg aria-hidden="true"><use href="#me-i-pin"/></svg>Чертаново</a><a class="me-btn" href="#popup:lead">Записаться</a></div>
+      </li>
+      <li class="me-coach me-reveal" style="--d:2">
+        <div class="me-coach__photo"><img src="https://static.tildacdn.com/tild3337-3165-4438-b732-623737623437/photo.png" alt="Алексей Болдин" loading="lazy"></div>
+        <p class="me-coach__disc">Самбо, Боевое самбо, ММА</p>
+        <h3 class="me-coach__name">Алексей Болдин</h3>
+        <p class="me-coach__about">Мастер спорта по самбо. Многократный призёр и участник всероссийских турниров по самбо. Высшее физкультурно-педагогическое образование.</p>
+        <div class="me-coach__foot"><a class="me-coach__club" href="/club-butovo"><svg aria-hidden="true"><use href="#me-i-pin"/></svg>Бутово</a><a class="me-btn" href="#popup:lead">Записаться</a></div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<section class="me-section me-faq" id="faq" aria-labelledby="me-faq-title">
+  <div class="me-wrap me-faq__grid">
+    <h2 class="me-h2 me-reveal" id="me-faq-title">Ответы на вопросы</h2>
+    <div class="me-accs">
+      <details class="me-acc me-reveal" open>
+        <summary>С какого возраста можно заниматься самбо?<svg aria-hidden="true"><use href="#me-i-plus"/></svg></summary>
+        <div class="me-acc__body"><p>Занятия по самбо доступны с 4 лет.</p></div>
+      </details>
+      <details class="me-acc me-reveal">
+        <summary>Какая форма одежды требуется?<svg aria-hidden="true"><use href="#me-i-plus"/></svg></summary>
+        <div class="me-acc__body"><p>Для занятий самбо необходимы шорты и куртка для самбо, борцовки.</p></div>
+      </details>
+      <details class="me-acc me-reveal">
+        <summary>Сколько длится занятие?<svg aria-hidden="true"><use href="#me-i-plus"/></svg></summary>
+        <div class="me-acc__body"><p>Тренировка по самбо длится от 60 до 90 минут, в зависимости от возрастной группы.</p></div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section class="me-section me-info" id="info" aria-labelledby="me-info-title">
+  <div class="me-wrap me-faq__grid">
+    <h2 class="me-h2 me-reveal" id="me-info-title">История и правила</h2>
+    <div class="me-accs">
+      <details class="me-acc me-reveal">
+        <summary>Истоки самбо<svg aria-hidden="true"><use href="#me-i-plus"/></svg></summary>
+        <div class="me-acc__body">
+          <p>История самбо начинается в 1923 году, когда Спиридонов В. А. придумывает и преподаёт дисциплину, которая так и называлась — «Самозащита». Параллельно с этим известный дзюдоист Ощепков В. С. отходит от канонов дзюдо и начинает заниматься поиском наиболее эффективных приёмов, которые можно применять в реальной жизни.</p>
+          <p>Самбо начинает своё развитие, когда школа Спиридонова сливается со школой Ощепкова.</p>
+          <p>16 ноября во многих странах СНГ принято считать днём рождения самбо. В этот день в 1938 году вышел указ о признании самбо самым ценным и необходимым видом спорта. После этого по всей территории Советского Союза начали открываться школы самбо. Немногим позже была создана Всесоюзная секция самбо, которая со временем переросла в известную и поныне Федерацию самбо.</p>
+        </div>
+      </details>
+      <details class="me-acc me-reveal">
+        <summary>Стили самбо<svg aria-hidden="true"><use href="#me-i-plus"/></svg></summary>
+        <div class="me-acc__body">
+          <p>В течение становления самбо смешались многие ответвления боевых искусств, однако существует несколько полностью признанных широкой публикой стилей самбо:</p>
+          <ul class="me-bullets">
+            <li>самооборонный стиль учит, как защищаться от оружия;</li>
+            <li>боевой стиль был придуман для военных: боевое самбо учит использовать оружие и методы разоружения противников;</li>
+            <li>спортивный стиль во многом похож на дзюдо: здесь тейкдауны имеют определяющее значение для победы над противником;</li>
+            <li>специальное самбо предназначено для спецназовцев и подразделений быстрого реагирования. В этом смысле оно схоже с боевым самбо, однако включает в себя специфическую технику для отдельных групп противодействия.</li>
+          </ul>
+        </div>
+      </details>
+      <details class="me-acc me-reveal">
+        <summary>Экипировка для занятий самбо<svg aria-hidden="true"><use href="#me-i-plus"/></svg></summary>
+        <div class="me-acc__body">
+          <p>До соревнований по самбо допускаются бойцы, одетые в специальную форму. Внешний вид бойца самбо состоит из:</p>
+          <ul class="me-bullets"><li>верхней накидки;</li><li>спортивной обуви;</li><li>шорт либо коротких штанов.</li></ul>
+          <p>Для девушек предусмотрено использование маек или футболок с коротким рукавом светлого цвета. Обязательным атрибутом всех занимающихся самбо является пояс.</p>
+        </div>
+      </details>
+      <details class="me-acc me-reveal">
+        <summary>Основные правила самбо<svg aria-hidden="true"><use href="#me-i-plus"/></svg></summary>
+        <div class="me-acc__body">
+          <p>Перед началом первого занятия всех желающих заниматься этим единоборством делят по группам, состав которых определяется датой рождения участника. В правилах самбо разрешено:</p>
+          <ul class="me-bullets"><li>проводить удержание противника;</li><li>осуществлять бросок через себя;</li><li>силовые и болевые приёмы, направленные на руки и ноги противника.</li></ul>
+          <p>Основные баллы в поединке начисляются за правильно проведённые приёмы и захваты. В момент проведения поединка запрещено иметь на себе дополнительное снаряжение и предметы, которыми можно ударить. Допускается использование бандажей, но при этом они должны быть закрыты тканью, чтобы не поранить соперника.</p>
+        </div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section class="me-section me-others" aria-labelledby="me-others-title" data-me-rail-wrap>
+  <div class="me-wrap">
+    <div class="me-section__head">
+      <h2 class="me-h2 me-reveal" id="me-others-title">Другие направления</h2>
+      <div class="me-arrows me-reveal">
+        <button class="me-arrow" type="button" aria-label="Назад" data-me-rail-prev><svg aria-hidden="true"><use href="#me-i-left"/></svg></button>
+        <button class="me-arrow" type="button" aria-label="Вперёд" data-me-rail-next><svg aria-hidden="true"><use href="#me-i-arrow"/></svg></button>
+      </div>
+    </div>
+    <ul class="me-rail me-others__rail" data-me-rail>
+      <li><a class="me-other" href="/judo"><img src="https://static.tildacdn.com/tild3063-3135-4637-b930-323435393366/napr-judo.jpg" alt="" loading="lazy"><span class="me-other__name">Дзюдо</span><span class="me-other__txt">Японское боевое искусство борьбы</span></a></li>
+      <li><a class="me-other" href="/kickboxing"><img src="https://static.tildacdn.com/tild6165-3139-4162-b937-653762336263/napr-kick.jpg" alt="" loading="lazy"><span class="me-other__name">Кикбоксинг</span><span class="me-other__txt">Динамичное единоборство с яркой ударной техникой</span></a></li>
+      <li><a class="me-other" href="/boxing"><img src="https://static.tildacdn.com/tild3438-6135-4563-b466-623463363032/napr-boxing.jpg" alt="" loading="lazy"><span class="me-other__name">Бокс</span><span class="me-other__txt">Классический вид контактного единоборства</span></a></li>
+      <li><a class="me-other" href="/karate"><img src="https://static.tildacdn.com/tild6233-3437-4264-b761-346535323035/napr-karatee.jpg" alt="" loading="lazy"><span class="me-other__name">Каратэ</span><span class="me-other__txt">Японское боевое искусство защиты и нападения</span></a></li>
+      <li><a class="me-other" href="/borba"><img src="https://static.tildacdn.com/tild6433-3965-4466-b237-646636633330/napr-wrestling.jpg" alt="" loading="lazy"><span class="me-other__name">Вольная борьба</span><span class="me-other__txt">Техника борьбы и удержания противника</span></a></li>
+      <li><a class="me-other" href="/muay-thai"><img src="https://static.tildacdn.com/tild6364-3831-4163-b232-366130646663/napr-muaythai.jpg" alt="" loading="lazy"><span class="me-other__name">Тайский бокс</span><span class="me-other__txt">Тайское жёсткое боевое искусство</span></a></li>
+      <li><a class="me-other" href="/mma"><img src="https://static.tildacdn.com/tild6634-3330-4439-a434-313834356430/napr-mma.jpg" alt="" loading="lazy"><span class="me-other__name">ММА</span><span class="me-other__txt">Смешанные единоборства</span></a></li>
+      <li><a class="me-other" href="/aikido"><img src="https://static.tildacdn.com/tild3830-6335-4161-b663-333965303637/napr-aikido.jpg" alt="" loading="lazy"><span class="me-other__name">Айкидо</span><span class="me-other__txt">Техники перенаправления сил противника</span></a></li>
+      <li><a class="me-other" href="/taekwondo"><img src="https://static.tildacdn.com/tild3563-6430-4163-a232-626433313766/napr-karate.jpg" alt="" loading="lazy"><span class="me-other__name">Тхэквондо</span><span class="me-other__txt">Активное использование ног для атаки и защиты</span></a></li>
+    </ul>
+  </div>
+</section>
+
+</main>

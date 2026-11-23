@@ -1,0 +1,1023 @@
+<!-- Мир единоборств · контент главной
+     Куда: главная страница → один блок T123 «HTML-код», вставить файл целиком.
+     Сгенерировано scripts/build.mjs — правки вносите в src/ и пересобирайте. -->
+<style>
+/* ==========================================================================
+   Главная: hero-«постер», направления, клубы, лагерь, тренеры, отзывы
+   ========================================================================== */
+
+/* ---------- HERO ---------- */
+.me-hero {
+  position: relative;
+  min-height: max(720px, 100svh);
+  display: flex;
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--me-ground);
+}
+.me-hero__stage { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+
+/* Giant discipline word — the poster */
+.me-hero__word {
+  position: absolute; left: 0; right: 0; top: 50%;
+  translate: 0 -54%;
+  padding-inline: var(--me-gutter);
+  font-family: var(--me-display); font-weight: 700; text-transform: uppercase;
+  line-height: 0.8; letter-spacing: -0.02em;
+  color: var(--me-red);
+  text-align: center;
+  white-space: nowrap;
+  will-change: transform;
+}
+.me-hero__word .ln { display: block; }
+.me-hero__word .ch { display: inline-block; will-change: transform, opacity, filter; }
+
+/* Shockwave ring on every switch */
+.me-hero__ring {
+  position: absolute; left: 58%; top: 48%;
+  width: min(70vw, 900px); aspect-ratio: 1;
+  translate: -50% -50%;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 90, 70, 0.55);
+  opacity: 0;
+}
+
+/* Diagonal red slash wipe */
+.me-hero__slash {
+  position: absolute; inset: -10%;
+  background: var(--me-red-hot);
+  clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+  opacity: 0.9;
+  mix-blend-mode: screen;
+}
+
+.me-hero__fighters {
+  position: absolute; right: 18%; bottom: 0;
+  width: min(48vw, 780px); height: 90%;
+  will-change: transform;
+}
+.me-hero__fighters img {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: contain; object-position: 50% 100%;
+  opacity: 0;
+  filter: drop-shadow(0 30px 60px rgba(0,0,0,0.65));
+}
+.me-hero__fighters img.is-active { opacity: 1; }
+
+.me-hero__shade {
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(90deg, rgba(11,11,12,0.97) 0%, rgba(11,11,12,0.88) 30%, rgba(11,11,12,0) 56%),
+    linear-gradient(0deg, rgba(11,11,12,0.95) 0%, rgba(11,11,12,0) 30%);
+}
+
+.me-hero__ui {
+  position: relative; z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(260px, 340px);
+  grid-template-rows: 1fr auto;
+  column-gap: 48px;
+  padding-top: calc(var(--me-header-h) + 40px);
+  padding-bottom: 28px;
+  min-height: inherit;
+}
+.me-hero__copy { align-self: center; max-width: 720px; }
+.me-hero__clubs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px; }
+.me-hero__clubs span {
+  font-size: 14px; font-weight: 500; letter-spacing: 0.02em;
+  padding: 6px 12px; border-radius: 100px;
+  background: rgba(243,239,232,0.08);
+  box-shadow: inset 0 0 0 1px var(--me-line);
+}
+.me-hero__title {
+  font-family: var(--me-display); font-weight: 700; text-transform: uppercase;
+  font-size: clamp(54px, 7vw, 120px);
+  line-height: 0.88; letter-spacing: -0.015em;
+}
+.me-hero__line { display: block; overflow: hidden; padding-bottom: 0.04em; margin-bottom: -0.04em; }
+.me-hero__line > span { display: inline-block; }
+.me-hero__sub { margin-top: 36px; font-size: clamp(17px, 1.4vw, 20px); color: var(--me-paper); opacity: 0.86; max-width: 40ch; }
+.me-hero__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 28px; margin-top: 36px; }
+.me-hero__phone {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: var(--me-display); font-weight: 600; font-size: 22px; letter-spacing: 0.03em;
+  transition: color 200ms ease;
+}
+.me-hero__phone svg { width: 22px; height: 22px; color: var(--me-red-hot); }
+@media (hover: hover) and (pointer: fine) { .me-hero__phone:hover { color: var(--me-red-hot); } }
+
+.me-hero__panel {
+  align-self: end; margin-bottom: 32px;
+  padding: 24px; border-radius: 6px;
+  background: rgba(11, 11, 12, 0.72);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  backdrop-filter: blur(16px) saturate(140%);
+  box-shadow: inset 0 0 0 1px var(--me-line), 0 24px 48px -24px rgba(0,0,0,0.8);
+}
+.me-hero__info { display: grid; gap: 14px; font-size: 16px; }
+.me-hero__info[hidden] { display: none; }
+.me-hero__name {
+  font-family: var(--me-display); font-weight: 600; text-transform: uppercase;
+  font-size: 30px; line-height: 1;
+}
+.me-hero__info > p:not(.me-hero__name) { color: var(--me-paper); opacity: 0.86; }
+.me-hero__info ul { display: flex; flex-wrap: wrap; gap: 6px; }
+.me-hero__info li {
+  font-size: 13px; padding: 5px 10px; border-radius: 100px;
+  box-shadow: inset 0 0 0 1px var(--me-line-strong);
+}
+.me-hero__info .me-link { justify-self: start; color: var(--me-red-hot); margin-top: 4px; }
+
+.me-hero__bar {
+  grid-column: 1 / -1; min-width: 0;
+  display: flex; align-items: center; gap: 24px;
+  border-top: 1px solid var(--me-line);
+  padding-top: 16px;
+}
+.me-hero__tabs {
+  flex: 1; min-width: 0; display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none;
+  mask-image: linear-gradient(90deg, #000 92%, transparent);
+}
+.me-hero__tabs::-webkit-scrollbar { display: none; }
+.me-hero__tabs button {
+  position: relative; flex: none;
+  padding: 12px 14px 14px;
+  font-size: 14px; font-weight: 500; white-space: nowrap;
+  color: var(--me-muted);
+  transition: color 200ms ease;
+}
+.me-hero__tabs button::before,
+.me-hero__tabs button::after {
+  content: ""; position: absolute; left: 14px; right: 14px; top: -17px; height: 3px;
+}
+.me-hero__tabs button::before { background: transparent; }
+.me-hero__tabs button::after { background: var(--me-red); transform: scaleX(0); transform-origin: left; }
+.me-hero__tabs button[aria-selected="true"] { color: var(--me-paper); }
+.me-hero__tabs button[aria-selected="true"]::before { background: var(--me-line-strong); }
+.me-hero__tabs button[aria-selected="true"]::after { animation: me-progress var(--me-dur, 6000ms) linear forwards; }
+.me-hero.is-paused .me-hero__tabs button[aria-selected="true"]::after { animation-play-state: paused; }
+.me-hero.is-static .me-hero__tabs button[aria-selected="true"]::after { animation: none; transform: scaleX(1); }
+@media (hover: hover) and (pointer: fine) { .me-hero__tabs button:hover { color: var(--me-paper); } }
+@keyframes me-progress { to { transform: scaleX(1); } }
+
+/* Entrance (hero enters once on load). Default is visible; JS adds .is-intro */
+.me-hero.is-intro [data-enter] { opacity: 0; transform: translateY(24px); }
+.me-hero.is-intro .me-hero__line > span { transform: translateY(105%); }
+.me-hero [data-enter] { transition: opacity 900ms var(--me-ease-out), transform 900ms var(--me-ease-out); }
+.me-hero .me-hero__line > span { transition: transform 1000ms var(--me-ease-out); }
+.me-hero .me-hero__title { transition: none; }
+.me-hero__line:nth-child(2) > span { transition-delay: 90ms; }
+.me-hero__line:nth-child(3) > span { transition-delay: 180ms; }
+.me-hero__sub[data-enter] { transition-delay: 320ms; }
+.me-hero__actions[data-enter] { transition-delay: 420ms; }
+.me-hero__panel[data-enter] { transition-delay: 600ms; }
+.me-hero__bar[data-enter] { transition-delay: 700ms; }
+
+@media (max-width: 960px) {
+  .me-hero { min-height: auto; }
+  .me-hero__ui { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto; padding-top: calc(var(--me-header-h) + 24px); }
+  .me-hero__stage { position: relative; position: absolute; }
+  .me-hero__word { top: calc(var(--me-header-h) + 52vw); translate: 0 -50%; }
+  .me-hero__fighters { right: 50%; translate: 50% 0; top: calc(var(--me-header-h) + 8vw); bottom: auto; width: 86vw; height: 82vw; }
+  .me-hero__ring { left: 50%; top: calc(var(--me-header-h) + 50vw); width: 90vw; }
+  .me-hero__shade {
+    background: linear-gradient(0deg, var(--me-ground) 0%, var(--me-ground) calc(100% - var(--me-header-h) - 92vw), rgba(11,11,12,0) calc(100% - var(--me-header-h) - 70vw));
+  }
+  .me-hero__copy { margin-top: calc(84vw); }
+  .me-hero__panel { margin: 36px 0 28px; padding: 22px; border-radius: 6px; background: var(--me-ground-2); box-shadow: inset 0 0 0 1px var(--me-line); }
+  .me-hero__bar { border-top: 0; padding-top: 0; }
+  .me-hero__bar .me-arrows { display: none; }
+  .me-hero__tabs { margin-inline: calc(var(--me-gutter) * -1); padding-inline: var(--me-gutter); }
+  .me-hero__tabs button::before, .me-hero__tabs button::after { top: auto; bottom: 0; }
+}
+@media (max-width: 560px) {
+  .me-hero__clubs { margin-bottom: 20px; }
+  .me-hero__actions .me-btn { width: 100%; }
+}
+
+/* ---------- DISCIPLINES (type-led list with cursor-following fighter) ---------- */
+.me-disc { position: relative; }
+.me-disc__list { border-top: 1px solid var(--me-line); }
+.me-disc__list li { border-bottom: 1px solid var(--me-line); }
+.me-disc__list a {
+  position: relative;
+  display: grid; grid-template-columns: 1fr auto 56px; align-items: center; gap: 24px;
+  padding-block: clamp(10px, 1.2vw, 18px);
+  isolation: isolate;
+}
+.me-disc__list a::before {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background: var(--me-red);
+  clip-path: inset(100% 0 0 0);
+  transition: clip-path 420ms var(--me-ease-out);
+}
+.me-disc__name {
+  font-family: var(--me-display); font-weight: 700; text-transform: uppercase;
+  font-size: clamp(40px, 6.6vw, 104px); line-height: 0.95; letter-spacing: -0.01em;
+  transition: transform 420ms var(--me-ease-out);
+}
+.me-disc__meta { font-size: 15px; color: var(--me-muted); transition: color 300ms ease; }
+.me-disc__list svg { width: 40px; height: 40px; justify-self: end; transition: transform 420ms var(--me-ease-out); }
+@media (hover: hover) and (pointer: fine) {
+  .me-disc__list a:hover::before { clip-path: inset(0 0 0 0); }
+  .me-disc__list a:hover .me-disc__name { transform: translateX(20px); }
+  .me-disc__list a:hover .me-disc__meta { color: #fff; }
+  .me-disc__list a:hover svg { transform: rotate(-45deg); }
+}
+.me-disc__float {
+  position: fixed; left: 0; top: 0; z-index: 5;
+  width: 320px; height: 380px; object-fit: contain; object-position: bottom;
+  pointer-events: none;
+  opacity: 0; scale: 0.92;
+  transition: opacity 260ms ease, scale 400ms var(--me-ease-out);
+  filter: drop-shadow(0 30px 40px rgba(0,0,0,0.6));
+}
+.me-disc__float.is-on { opacity: 1; scale: 1; }
+@media (max-width: 640px) {
+  .me-disc__list a { grid-template-columns: 1fr 32px; }
+  .me-disc__meta { display: none; }
+  .me-disc__list svg { width: 28px; height: 28px; }
+}
+
+/* ---------- WHY ---------- */
+.me-why { border-block: 1px solid var(--me-line); }
+.me-why__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; }
+.me-why__item {
+  padding: 8px clamp(16px, 2vw, 32px);
+  font-size: 17px; color: var(--me-muted);
+  border-left: 1px solid var(--me-line);
+}
+.me-why__item:first-child { border-left: 0; padding-left: 0; }
+.me-why__item strong {
+  display: block; margin-bottom: 8px;
+  font-family: var(--me-display); font-weight: 600; text-transform: uppercase;
+  font-size: clamp(24px, 2.2vw, 32px); line-height: 1; color: var(--me-paper);
+}
+@media (max-width: 960px) {
+  .me-why__grid { grid-template-columns: 1fr 1fr; row-gap: 40px; }
+  .me-why__item:nth-child(3) { border-left: 0; padding-left: 0; }
+}
+@media (max-width: 520px) {
+  .me-why__grid { grid-template-columns: 1fr; row-gap: 28px; }
+  .me-why__item { border-left: 0; padding-left: 0; }
+}
+
+/* ---------- CLUBS ---------- */
+.me-clubs__grid {
+  display: grid; grid-template-columns: 1.35fr 1fr; grid-template-rows: auto auto;
+  gap: 20px;
+}
+.me-club {
+  position: relative; display: flex; flex-direction: column;
+  background: var(--me-ground-2); border-radius: 6px; overflow: hidden;
+  box-shadow: inset 0 0 0 1px var(--me-line);
+}
+.me-club--big { grid-row: span 2; }
+.me-club__media { display: block; overflow: hidden; aspect-ratio: 16 / 10; }
+.me-club--big .me-club__media { aspect-ratio: auto; flex: 1; min-height: 320px; }
+.me-club__media img { width: 100%; height: 100%; object-fit: cover; transition: transform 700ms var(--me-ease-out); }
+@media (hover: hover) and (pointer: fine) {
+  .me-club:hover .me-club__media img { transform: scale(1.03); }
+}
+.me-club__body { padding: clamp(22px, 2.4vw, 32px); display: grid; gap: 10px; }
+.me-club__body .me-h3 { font-size: clamp(32px, 3.2vw, 48px); }
+.me-club__body p { display: flex; align-items: flex-start; gap: 10px; color: var(--me-paper); opacity: 0.9; font-size: 16px; }
+.me-club__body p svg { width: 20px; height: 20px; flex: none; margin-top: 2px; color: var(--me-red-hot); }
+.me-club__tel { flex-wrap: wrap; gap: 4px 18px !important; font-family: var(--me-display); font-size: 20px !important; font-weight: 600; letter-spacing: 0.02em; }
+.me-club__tel a { transition: color 200ms ease; }
+@media (hover: hover) and (pointer: fine) { .me-club__tel a:hover { color: var(--me-red-hot); } }
+.me-club__actions { display: flex; gap: 24px; margin-top: 8px; }
+.me-club__actions .me-link:first-child { color: var(--me-red-hot); }
+.me-clubs__grid { grid-template-columns: 1.35fr 1fr 1fr; }
+.me-club--big { grid-row: span 2; grid-column: 1; }
+.me-club--plain { justify-content: flex-end; }
+.me-club--franchise {
+  background: var(--me-red); box-shadow: none;
+  padding: clamp(22px, 2.4vw, 32px);
+  justify-content: space-between; gap: 24px; min-height: 240px;
+  transition: transform 300ms var(--me-ease-out), background-color 200ms ease;
+}
+.me-club--franchise .me-h3 { max-width: 14ch; }
+@media (hover: hover) and (pointer: fine) {
+  .me-club--franchise:hover { transform: translateY(-2px); background: var(--me-red-deep); }
+}
+.me-clubs__grid > :nth-child(2) { grid-column: 2 / 4; flex-direction: row; }
+.me-clubs__grid > :nth-child(2) .me-club__media { aspect-ratio: auto; width: 46%; flex: none; }
+@media (max-width: 1100px) {
+  .me-clubs__grid { grid-template-columns: 1fr 1fr; }
+  .me-club--big { grid-column: 1 / -1; grid-row: auto; }
+  .me-club--big .me-club__media { min-height: 0; aspect-ratio: 16/8; }
+  .me-clubs__grid > :nth-child(2) { grid-column: 1 / -1; }
+}
+@media (max-width: 680px) {
+  .me-clubs__grid { grid-template-columns: 1fr; }
+  .me-clubs__grid > :nth-child(2) { flex-direction: column; }
+  .me-clubs__grid > :nth-child(2) .me-club__media { width: 100%; aspect-ratio: 16/10; }
+  .me-club--big .me-club__media { aspect-ratio: 16/10; }
+}
+
+/* ---------- CAMP ---------- */
+.me-camp {
+  position: relative; overflow: hidden;
+  background: var(--me-paper); color: var(--me-ground);
+}
+.me-camp__in {
+  display: grid; grid-template-columns: 1.1fr 1fr; align-items: end; gap: 40px;
+  padding-top: clamp(72px, 9vw, 128px);
+}
+.me-camp__copy { display: grid; gap: 24px; justify-items: start; padding-bottom: clamp(72px, 9vw, 128px); }
+.me-camp__tag {
+  font-family: var(--me-display); font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em;
+  font-size: 15px; padding: 6px 12px; border-radius: 100px;
+  background: var(--me-ground); color: var(--me-paper);
+}
+.me-camp .me-lead { color: #3b3833; }
+.me-camp__img { width: 100%; max-height: 620px; object-fit: contain; object-position: bottom; }
+@media (max-width: 860px) {
+  .me-camp__in { grid-template-columns: 1fr; }
+  .me-camp__copy { padding-bottom: 0; }
+  .me-camp__img { max-height: 420px; }
+}
+
+/* ---------- TEAM ---------- */
+.me-team__nav { display: flex; align-items: center; gap: 28px; flex-wrap: wrap; }
+.me-team__rail { --rail-col: minmax(280px, calc((100% - 60px) / 4)); }
+.me-coach { display: grid; gap: 10px; align-content: start; }
+.me-coach__photo {
+  position: relative; aspect-ratio: 4 / 5; overflow: hidden; border-radius: 6px;
+  background: linear-gradient(180deg, #1d1d20 0%, #2a0f0c 100%);
+  margin-bottom: 10px;
+}
+.me-coach__photo::after {
+  content: ""; position: absolute; left: 50%; bottom: -30%; width: 120%; aspect-ratio: 1;
+  translate: -50% 0; border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(227,38,27,0.45), rgba(227,38,27,0));
+}
+.me-coach__photo img {
+  position: absolute; inset: 0; z-index: 1; width: 100%; height: 100%;
+  object-fit: contain; object-position: 50% 100%;
+  transition: transform 700ms var(--me-ease-out);
+}
+@media (hover: hover) and (pointer: fine) { .me-coach:hover .me-coach__photo img { transform: scale(1.03); } }
+.me-coach__disc { font-size: 14px; color: var(--me-red-hot); font-weight: 500; }
+.me-coach__name { font-family: var(--me-display); font-weight: 600; text-transform: uppercase; font-size: 28px; line-height: 1; }
+.me-coach__about { font-size: 15px; color: var(--me-muted); }
+@media (max-width: 1100px) { .me-team__rail { --rail-col: minmax(260px, 40%); } }
+@media (max-width: 640px) { .me-team__rail { --rail-col: 78%; } }
+
+/* ---------- REVIEWS ---------- */
+.me-reviews { background: var(--me-ground-2); }
+.me-reviews__rail { --rail-col: minmax(320px, calc((100% - 40px) / 3)); }
+.me-review {
+  display: flex; flex-direction: column; gap: 20px;
+  padding: clamp(24px, 2.4vw, 36px);
+  background: var(--me-ground); border-radius: 6px;
+  box-shadow: inset 0 0 0 1px var(--me-line);
+  min-height: 320px;
+}
+.me-review__stars { display: flex; gap: 4px; color: var(--me-red-hot); }
+.me-review__stars svg { width: 20px; height: 20px; }
+.me-review blockquote { font-size: 18px; line-height: 1.5; flex: 1; }
+.me-review__who { display: flex; align-items: center; gap: 12px; font-weight: 600; }
+.me-review__who span {
+  width: 42px; height: 42px; border-radius: 50%; display: grid; place-items: center;
+  background: var(--me-red); color: #fff; font-family: var(--me-display); font-size: 20px;
+}
+@media (max-width: 1100px) { .me-reviews__rail { --rail-col: minmax(300px, 46%); } }
+@media (max-width: 640px) { .me-reviews__rail { --rail-col: 86%; } }
+
+/* ---------- PARTNERS ---------- */
+.me-partners { padding-block: 56px; }
+.me-partners__row { display: flex; align-items: center; justify-content: space-between; gap: 40px; flex-wrap: wrap; }
+.me-partners__row img { height: 56px; width: auto; max-width: 200px; object-fit: contain; filter: grayscale(1) brightness(1.6); opacity: 0.7; transition: filter 300ms ease, opacity 300ms ease; }
+@media (hover: hover) and (pointer: fine) { .me-partners__row img:hover { filter: none; opacity: 1; } }
+@media (max-width: 640px) { .me-partners__row { justify-content: center; } .me-partners__row img { height: 44px; } }
+
+</style>
+<div class="me me--home">
+<main>
+<!-- ================= HERO: интерактивный «постер» направлений ================= -->
+<section class="me-hero" data-me-hero aria-roledescription="карусель" aria-label="Направления клуба">
+  <div class="me-hero__stage" aria-hidden="true">
+    <div class="me-hero__word" data-me-word>САМБО</div>
+    <div class="me-hero__ring" data-me-ring></div>
+    <div class="me-hero__slash" data-me-slash></div>
+    <div class="me-hero__fighters" data-me-fighters>
+      <img class="is-active" src="https://static.tildacdn.com/tild3332-6233-4830-b730-666436336438/XXL2.png" alt="" width="1023" height="927" fetchpriority="high">
+      <img src="https://static.tildacdn.com/tild3433-3036-4465-b063-323637633431/karate_pacan_2234x28.png" alt="" width="443" height="530" loading="lazy">
+      <img src="https://static.tildacdn.com/tild6362-3430-4239-b137-323465313466/Kickboxing-mma.png" alt="" width="400" height="554" loading="lazy">
+      <img src="https://static.tildacdn.com/tild6466-3935-4433-b535-646466366261/adult-judo-3lesson.png" alt="" width="400" height="554" loading="lazy">
+      <img src="https://static.tildacdn.com/tild3033-3165-4637-a132-666231343937/Grappling.png" alt="" width="675" height="696" loading="lazy">
+      <img src="https://static.tildacdn.com/tild6264-3333-4832-b464-623337313866/profile_Ryan-Burnett.png" alt="" width="296" height="599" loading="lazy">
+      <img src="https://static.tildacdn.com/tild6130-3162-4433-b737-653664656436/996907e788b8455b421e.png" alt="" width="534" height="537" loading="lazy">
+      <img src="https://static.tildacdn.com/tild6561-6163-4333-b961-376266663066/main-borba.png" alt="" width="500" height="584" loading="lazy">
+      <img src="https://static.tildacdn.com/tild3035-3432-4463-b461-353632376332/photo.png" alt="" width="681" height="596" loading="lazy">
+      <img src="https://static.tildacdn.com/tild6531-3439-4337-a436-373664313332/photo.png" alt="" width="680" height="879" loading="lazy">
+    </div>
+    <div class="me-hero__shade"></div>
+  </div>
+
+  <div class="me-wrap me-hero__ui">
+    <div class="me-hero__copy">
+      <p class="me-hero__clubs" data-enter>
+        <span>Чертаново</span><span>Бутово</span><span>Королёв</span>
+      </p>
+      <h1 class="me-hero__title" data-enter>
+        <span class="me-hero__line"><span>Первая</span></span>
+        <span class="me-hero__line"><span>тренировка</span></span>
+        <span class="me-hero__line me-red"><span>бесплатно</span></span>
+      </h1>
+      <p class="me-hero__sub" data-enter>Мир единоборств — сеть спортивных клубов. 10 направлений, детские и взрослые группы.</p>
+      <div class="me-hero__actions" data-enter>
+        <a class="me-btn me-btn--lg" href="#popup:lead">Записаться <svg aria-hidden="true"><use href="#me-i-arrow"/></svg></a>
+        <a class="me-hero__phone" href="tel:+79636046933"><svg aria-hidden="true"><use href="#me-i-phone"/></svg>8 963 604-69-33</a>
+      </div>
+    </div>
+
+    <div class="me-hero__panel" data-enter>
+      <div class="me-hero__infos" aria-live="polite">
+        <div class="me-hero__info is-active">
+          <p class="me-hero__name">Самбо</p>
+          <p>Самый популярный вид борьбы в России. Детские и взрослые группы.</p>
+          <ul><li>Сила</li><li>Дисциплина и собранность</li><li>Спортивные навыки</li></ul>
+          <a class="me-link" href="/sambo">Подробнее <svg aria-hidden="true"><use href="#me-i-arrow"/></svg></a>
+        </div>
+        <div class="me-hero__info" hidden>
+          <p class="me-hero__name">Каратэ</p>
+          <p>Японское боевое искусство защиты и нападения. Детские и взрослые группы.</p>
+          <ul><li>Скорость</li><li>Взрывная сила</li><li>Владение телом и концентрация</li></ul>
+          <a class="me-link" href="/karate">Подробнее <svg aria-hidden="true"><use href="#me-i-arrow"/></svg></a>
+        </div>
+        <div class="me-hero__info" hidden>
+          <p class="me-hero__name">Кикбоксинг</p>
+          <p>Динамичное единоборство с яркой ударной техникой. Детские и взрослые группы.</p>
+          <ul><li>Скорость</li><li>Сила</li><li>Всестороннее развитие тела</li></ul>
+          <a class="me-link" href="/kickboxing">Подробнее <svg aria-hidden="true"><use href="#me-i-arrow"/></svg></a>
+        </div>
+        <div class="me-hero__info" hidden>
+          <p class="me-hero__name">Дзюдо</p>
+          <p>Японское боевое искусство защиты и нападения. Детские группы.</p>
+          <ul><li>Спортивные навыки</li><li>Сила</li><li>Дисциплина и собранность</li></ul>
+          <a class="me-link" href="/judo">Подробнее <svg aria-hidden="true"><use href="#me-i-arrow"/></svg></a>
+        </div>
+        <div class="me-hero__info" hidden>
+          <p class="me-hero__name">Грэпплинг</p>
+          <p>Спортивная борьба, успешно совмещающая техники и приёмы различных видов борьбы.</p>
+          <ul><li>Спортивные навыки и гибкость</li><li>Сила</li><li>Дисциплина и собранность</li></ul>
+          <a class="me-link" href="/grappling">Подробнее <svg aria-hidden="true"><use href="#me-i-arrow"/></svg></a>
+        </div>
+        <div class="me-hero__info" hidden>
+          <p class="me-hero__name">Бокс</p>
+          <p>Классический вид контактного единоборства. Детские и взрослые группы.</p>
+          <ul><li>Скорость</li><li>Сила</li><li>Владение телом и концентрация</li></ul>
+          <a class="me-link" href="/boxing">Подробнее <svg aria-hidden="true"><use href="#me-i-arrow"/></svg></a>
+        </div>
+        <div class="me-hero__info" hidden>
+          <p class="me-hero__name">Тайский бокс</p>
+          <p>Тайское жёсткое боевое искусство. Группы для взрослых.</p>
+          <ul><li>Скорость</li><li>Взрывная сила</li><li>Владение телом и концентрация</li></ul>
+          <a class="me-link" href="/muay-thai">Подробнее <svg aria-hidden="true"><use href="#me-i-arrow"/></svg></a>
+        </div>
+        <div class="me-hero__info" hidden>
+          <p class="me-hero__name">Вольная борьба</p>
+          <p>Техника борьбы и удержания противника. Детские группы.</p>
+          <ul><li>Спортивные навыки</li><li>Сила</li><li>Акробатика и гибкость тела</li></ul>
+          <a class="me-link" href="/borba">Подробнее <svg aria-hidden="true"><use href="#me-i-arrow"/></svg></a>
+        </div>
+        <div class="me-hero__info" hidden>
+          <p class="me-hero__name">Панкратион</p>
+          <p>Самые действенные навыки защиты и нападения из разных дисциплин. Секции для детей и взрослых.</p>
+          <ul><li>Спортивные навыки</li><li>Сила</li><li>Дисциплина и собранность</li></ul>
+          <a class="me-link" href="/pankration">Подробнее <svg aria-hidden="true"><use href="#me-i-arrow"/></svg></a>
+        </div>
+        <div class="me-hero__info" hidden>
+          <p class="me-hero__name">ММА</p>
+          <p>Смешанное боевое искусство: сочетание борьбы и ударов. Детские и взрослые группы.</p>
+          <ul><li>Скорость</li><li>Взрывная сила</li><li>Владение телом и концентрация</li></ul>
+          <a class="me-link" href="/mma">Подробнее <svg aria-hidden="true"><use href="#me-i-arrow"/></svg></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="me-hero__bar" data-enter>
+      <div class="me-hero__tabs" role="tablist" aria-label="Выбор направления" data-me-tabs>
+        <button role="tab" aria-selected="true"  data-word="САМБО">Самбо</button>
+        <button role="tab" aria-selected="false" data-word="КАРАТЭ">Каратэ</button>
+        <button role="tab" aria-selected="false" data-word="КИКБОКСИНГ">Кикбоксинг</button>
+        <button role="tab" aria-selected="false" data-word="ДЗЮДО">Дзюдо</button>
+        <button role="tab" aria-selected="false" data-word="ГРЭППЛИНГ">Грэпплинг</button>
+        <button role="tab" aria-selected="false" data-word="БОКС">Бокс</button>
+        <button role="tab" aria-selected="false" data-word="ТАЙСКИЙ|БОКС">Тайский бокс</button>
+        <button role="tab" aria-selected="false" data-word="ВОЛЬНАЯ|БОРЬБА">Вольная борьба</button>
+        <button role="tab" aria-selected="false" data-word="ПАНКРАТИОН">Панкратион</button>
+        <button role="tab" aria-selected="false" data-word="ММА">ММА</button>
+      </div>
+      <div class="me-arrows">
+        <button class="me-arrow" type="button" aria-label="Предыдущее направление" data-me-prev><svg aria-hidden="true"><use href="#me-i-left"/></svg></button>
+        <button class="me-arrow" type="button" aria-label="Следующее направление" data-me-next><svg aria-hidden="true"><use href="#me-i-arrow"/></svg></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= НАПРАВЛЕНИЯ: типографический список ================= -->
+<section class="me-section me-disc" aria-labelledby="me-disc-title" data-me-disc>
+  <div class="me-wrap">
+    <div class="me-section__head">
+      <h2 class="me-h2 me-reveal" id="me-disc-title">Выбери<br>свой стиль</h2>
+      <a class="me-link me-reveal" href="/classes">Все направления <svg aria-hidden="true"><use href="#me-i-arrow"/></svg></a>
+    </div>
+    <ul class="me-disc__list">
+      <li><a href="/sambo" data-img="https://static.tildacdn.com/tild3332-6233-4830-b730-666436336438/XXL2.png"><span class="me-disc__name">Самбо</span><span class="me-disc__meta">Дети и взрослые</span><svg aria-hidden="true"><use href="#me-i-arrow"/></svg></a></li>
+      <li><a href="/boxing" data-img="https://static.tildacdn.com/tild6264-3333-4832-b464-623337313866/profile_Ryan-Burnett.png"><span class="me-disc__name">Бокс</span><span class="me-disc__meta">Дети и взрослые</span><svg aria-hidden="true"><use href="#me-i-arrow"/></svg></a></li>
+      <li><a href="/mma" data-img="https://static.tildacdn.com/tild6531-3439-4337-a436-373664313332/photo.png"><span class="me-disc__name">ММА</span><span class="me-disc__meta">Дети и взрослые</span><svg aria-hidden="true"><use href="#me-i-arrow"/></svg></a></li>
+      <li><a href="/karate" data-img="https://static.tildacdn.com/tild3433-3036-4465-b063-323637633431/karate_pacan_2234x28.png"><span class="me-disc__name">Каратэ</span><span class="me-disc__meta">Дети и взрослые</span><svg aria-hidden="true"><use href="#me-i-arrow"/></svg></a></li>
+      <li><a href="/kickboxing" data-img="https://static.tildacdn.com/tild6362-3430-4239-b137-323465313466/Kickboxing-mma.png"><span class="me-disc__name">Кикбоксинг</span><span class="me-disc__meta">Дети и взрослые</span><svg aria-hidden="true"><use href="#me-i-arrow"/></svg></a></li>
+      <li><a href="/judo" data-img="https://static.tildacdn.com/tild6466-3935-4433-b535-646466366261/adult-judo-3lesson.png"><span class="me-disc__name">Дзюдо</span><span class="me-disc__meta">Детские группы</span><svg aria-hidden="true"><use href="#me-i-arrow"/></svg></a></li>
+      <li><a href="/borba" data-img="https://static.tildacdn.com/tild6561-6163-4333-b961-376266663066/main-borba.png"><span class="me-disc__name">Вольная борьба</span><span class="me-disc__meta">Детские группы</span><svg aria-hidden="true"><use href="#me-i-arrow"/></svg></a></li>
+      <li><a href="/grappling" data-img="https://static.tildacdn.com/tild3033-3165-4637-a132-666231343937/Grappling.png"><span class="me-disc__name">Грэпплинг</span><span class="me-disc__meta">Взрослые</span><svg aria-hidden="true"><use href="#me-i-arrow"/></svg></a></li>
+      <li><a href="/muay-thai" data-img="https://static.tildacdn.com/tild6130-3162-4433-b737-653664656436/996907e788b8455b421e.png"><span class="me-disc__name">Тайский бокс</span><span class="me-disc__meta">Взрослые</span><svg aria-hidden="true"><use href="#me-i-arrow"/></svg></a></li>
+      <li><a href="/pankration" data-img="https://static.tildacdn.com/tild3035-3432-4463-b461-353632376332/photo.png"><span class="me-disc__name">Панкратион</span><span class="me-disc__meta">Дети и взрослые</span><svg aria-hidden="true"><use href="#me-i-arrow"/></svg></a></li>
+    </ul>
+  </div>
+  <img class="me-disc__float" data-me-float src="https://static.tildacdn.com/tild3332-6233-4830-b730-666436336438/XXL2.png" alt="" aria-hidden="true" loading="lazy">
+</section>
+
+<!-- ================= ПРЕИМУЩЕСТВА ================= -->
+<section class="me-section me-section--tight me-why" aria-label="Почему Мир единоборств">
+  <div class="me-wrap me-why__grid">
+    <p class="me-why__item me-reveal"><strong>Групповые и индивидуальные</strong> занятия для детей и взрослых</p>
+    <p class="me-why__item me-reveal" style="--d:1"><strong>Современные методики</strong> тренировок — комплексный подход</p>
+    <p class="me-why__item me-reveal" style="--d:2"><strong>Всестороннее развитие</strong> личности — развитие тела и духа</p>
+    <p class="me-why__item me-reveal" style="--d:3"><strong>Яркое сообщество</strong> — находи друзей на всю жизнь</p>
+  </div>
+</section>
+
+<!-- ================= КЛУБЫ ================= -->
+<section class="me-section me-clubs" id="clubs" aria-labelledby="me-clubs-title">
+  <div class="me-wrap">
+    <div class="me-section__head">
+      <h2 class="me-h2 me-reveal" id="me-clubs-title">Наши клубы</h2>
+      <a class="me-link me-reveal" href="/clubs">Все клубы <svg aria-hidden="true"><use href="#me-i-arrow"/></svg></a>
+    </div>
+    <div class="me-clubs__grid">
+      <article class="me-club me-club--big me-reveal">
+        <a class="me-club__media" href="/club-chertanovo" tabindex="-1" aria-hidden="true">
+          <img src="https://static.tildacdn.com/tild3263-3837-4536-a435-313962643636/zal-chertanovo.jpg" alt="" loading="lazy">
+        </a>
+        <div class="me-club__body">
+          <h3 class="me-h3"><a href="/club-chertanovo">Чертаново</a></h3>
+          <p class="me-club__addr"><svg aria-hidden="true"><use href="#me-i-pin"/></svg>Чертановская ул., 23а</p>
+          <p class="me-club__metro"><svg aria-hidden="true"><use href="#me-i-metro"/></svg>Пражская · Южная</p>
+          <p class="me-club__tel"><a href="tel:+79636046933">8 963 604-69-33</a><a href="tel:+79152613757">8 915 261-37-57</a></p>
+          <div class="me-club__actions">
+            <a class="me-link" href="/club-chertanovo">О клубе <svg aria-hidden="true"><use href="#me-i-arrow"/></svg></a>
+            <a class="me-link me-muted" href="https://yandex.ru/maps/?text=%D0%9C%D0%BE%D1%81%D0%BA%D0%B2%D0%B0%2C%20%D0%A7%D0%B5%D1%80%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D1%81%D0%BA%D0%B0%D1%8F%20%D1%83%D0%BB.%2C%2023%D0%B0" target="_blank" rel="noopener">На карте</a>
+          </div>
+        </div>
+      </article>
+      <article class="me-club me-reveal" style="--d:1">
+        <a class="me-club__media" href="/club-korolev" tabindex="-1" aria-hidden="true">
+          <img src="https://static.tildacdn.com/tild6530-6265-4435-b133-333730323161/club-korolev-small.jpg" alt="" loading="lazy">
+        </a>
+        <div class="me-club__body">
+          <h3 class="me-h3"><a href="/club-korolev">Королёв</a></h3>
+          <p class="me-club__addr"><svg aria-hidden="true"><use href="#me-i-pin"/></svg>проспект Космонавтов, 34б, г. Королёв</p>
+          <p class="me-club__tel"><a href="tel:+79295964660">8 929 596-46-60</a></p>
+          <div class="me-club__actions">
+            <a class="me-link" href="/club-korolev">О клубе <svg aria-hidden="true"><use href="#me-i-arrow"/></svg></a>
+            <a class="me-link me-muted" href="https://yandex.ru/maps/?text=%D0%9A%D0%BE%D1%80%D0%BE%D0%BB%D1%91%D0%B2%2C%20%D0%BF%D1%80%D0%BE%D1%81%D0%BF%D0%B5%D0%BA%D1%82%20%D0%9A%D0%BE%D1%81%D0%BC%D0%BE%D0%BD%D0%B0%D0%B2%D1%82%D0%BE%D0%B2%2C%2034%D0%B1" target="_blank" rel="noopener">На карте</a>
+          </div>
+        </div>
+      </article>
+      <article class="me-club me-club--plain me-reveal" style="--d:2">
+        <div class="me-club__body">
+          <h3 class="me-h3"><a href="/club-butovo">Бутово</a></h3>
+          <p class="me-club__addr"><svg aria-hidden="true"><use href="#me-i-pin"/></svg>Старокачаловская ул., 1д</p>
+          <p class="me-club__metro"><svg aria-hidden="true"><use href="#me-i-metro"/></svg>Бульвар Дмитрия Донского</p>
+          <p class="me-club__tel"><a href="tel:+79636046933">8 963 604-69-33</a><a href="tel:+79152613757">8 915 261-37-57</a></p>
+          <div class="me-club__actions">
+            <a class="me-link" href="/club-butovo">О клубе <svg aria-hidden="true"><use href="#me-i-arrow"/></svg></a>
+            <a class="me-link me-muted" href="https://yandex.ru/maps/?text=%D0%9C%D0%BE%D1%81%D0%BA%D0%B2%D0%B0%2C%20%D0%A1%D1%82%D0%B0%D1%80%D0%BE%D0%BA%D0%B0%D1%87%D0%B0%D0%BB%D0%BE%D0%B2%D1%81%D0%BA%D0%B0%D1%8F%20%D1%83%D0%BB.%2C%201%D0%B4" target="_blank" rel="noopener">На карте</a>
+          </div>
+        </div>
+      </article>
+      <a class="me-club me-club--franchise me-reveal" style="--d:3" href="/franchise">
+        <span class="me-h3">Откройте клуб «Мир единоборств» в своём городе</span>
+        <span class="me-link">Франчайзинг <svg aria-hidden="true"><use href="#me-i-arrow"/></svg></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ЛАГЕРЬ ================= -->
+<section class="me-camp" aria-labelledby="me-camp-title">
+  <div class="me-wrap me-camp__in">
+    <div class="me-camp__copy">
+      <p class="me-camp__tag me-reveal">Летняя смена 2026 · скоро</p>
+      <h2 class="me-h2 me-reveal" id="me-camp-title">Детский спортивный лагерь</h2>
+      <p class="me-lead me-reveal">Программа летнего лагеря 2026 в разработке. Оставьте контакты — мы свяжемся, когда программа будет готова.</p>
+      <a class="me-btn me-btn--lg me-reveal" href="#popup:camp">Получить информацию <svg aria-hidden="true"><use href="#me-i-arrow"/></svg></a>
+    </div>
+    <img class="me-camp__img" src="https://static.tildacdn.com/tild6136-3832-4438-b563-343830646436/kids-Martial-Arts-5.png" alt="Дети на тренировке по единоборствам" loading="lazy">
+  </div>
+</section>
+
+<!-- ================= ТРЕНЕРЫ ================= -->
+<section class="me-section me-team" aria-labelledby="me-team-title" data-me-rail-wrap>
+  <div class="me-wrap">
+    <div class="me-section__head">
+      <h2 class="me-h2 me-reveal" id="me-team-title">Тренерский<br>штаб</h2>
+      <div class="me-team__nav me-reveal">
+        <a class="me-link" href="/team">Все тренеры <svg aria-hidden="true"><use href="#me-i-arrow"/></svg></a>
+        <div class="me-arrows">
+          <button class="me-arrow" type="button" aria-label="Назад" data-me-rail-prev><svg aria-hidden="true"><use href="#me-i-left"/></svg></button>
+          <button class="me-arrow" type="button" aria-label="Вперёд" data-me-rail-next><svg aria-hidden="true"><use href="#me-i-arrow"/></svg></button>
+        </div>
+      </div>
+    </div>
+    <ul class="me-rail me-team__rail" data-me-rail>
+      <li class="me-coach">
+        <div class="me-coach__photo"><img src="https://static.tildacdn.com/tild3532-3131-4338-a236-666639363436/photo.png" alt="Алексей Простомолотов" loading="lazy"></div>
+        <p class="me-coach__disc">Бокс</p>
+        <h3 class="me-coach__name">Алексей Простомолотов</h3>
+        <p class="me-coach__about">КМС по боксу. Высшее физкультурно-педагогическое образование. Тренерский стаж — 10 лет.</p>
+      </li>
+      <li class="me-coach">
+        <div class="me-coach__photo"><img src="https://static.tildacdn.com/tild3338-6161-4566-b535-663561383362/_7.png" alt="Шохаббос Шукуров" loading="lazy"></div>
+        <p class="me-coach__disc">Бокс</p>
+        <h3 class="me-coach__name">Шохаббос Шукуров</h3>
+        <p class="me-coach__about">МС по боксу. Чемпион Вооружённых сил РФ. Призёр первенства страны. Тренерский стаж — 8 лет.</p>
+      </li>
+      <li class="me-coach">
+        <div class="me-coach__photo"><img src="https://static.tildacdn.com/tild3030-3035-4438-a535-386338376637/_12.png" alt="Заур Халилов" loading="lazy"></div>
+        <p class="me-coach__disc">Самбо, Дзюдо</p>
+        <h3 class="me-coach__name">Заур Халилов</h3>
+        <p class="me-coach__about">МС по дзюдо, МС по самбо. Чемпион Москвы. Тренерский стаж — 20 лет.</p>
+      </li>
+      <li class="me-coach">
+        <div class="me-coach__photo"><img src="https://static.tildacdn.com/tild3534-3533-4339-b362-313932353563/_8.png" alt="Сергей Васильев" loading="lazy"></div>
+        <p class="me-coach__disc">Дзюдо</p>
+        <h3 class="me-coach__name">Сергей Васильев</h3>
+        <p class="me-coach__about">МС по дзюдо. Победитель первенств Москвы и России. РГУФКСМиТ — тренер-педагог.</p>
+      </li>
+      <li class="me-coach">
+        <div class="me-coach__photo"><img src="https://static.tildacdn.com/tild6365-6336-4636-a532-666230346466/_9.png" alt="Антон Баязитов" loading="lazy"></div>
+        <p class="me-coach__disc">ММА, БЖЖ, Грэпплинг, Панкратион</p>
+        <h3 class="me-coach__name">Антон Баязитов</h3>
+        <p class="me-coach__about">КМС по ММА, КМС по грэпплингу, синий пояс по БЖЖ. Чемпион всероссийских турниров по ММА.</p>
+      </li>
+      <li class="me-coach">
+        <div class="me-coach__photo"><img src="https://static.tildacdn.com/tild6161-6565-4137-b431-336666383966/_4.png" alt="Александр Горшков" loading="lazy"></div>
+        <p class="me-coach__disc">Самбо, Боевое самбо, ММА</p>
+        <h3 class="me-coach__name">Александр Горшков</h3>
+        <p class="me-coach__about">КМС по боевому самбо. Призёр всероссийских турниров по самбо. Двукратный призёр Москвы по боевому самбо.</p>
+      </li>
+      <li class="me-coach">
+        <div class="me-coach__photo"><img src="https://static.tildacdn.com/tild6361-6238-4438-b064-326433643932/_6.png" alt="Сергей Простомолотов" loading="lazy"></div>
+        <p class="me-coach__disc">Тренажёрный зал</p>
+        <h3 class="me-coach__name">Сергей Простомолотов</h3>
+        <p class="me-coach__about">МС по пауэрлифтингу. Спортивная реабилитация после травм. Тренерский стаж более 20 лет.</p>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ================= ОТЗЫВЫ ================= -->
+<section class="me-section me-reviews" aria-labelledby="me-rev-title" data-me-rail-wrap>
+  <div class="me-wrap">
+    <div class="me-section__head">
+      <h2 class="me-h2 me-reveal" id="me-rev-title">Отзывы</h2>
+      <div class="me-team__nav me-reveal">
+        <a class="me-btn me-btn--ghost" href="#popup:feedback">Оставить отзыв</a>
+        <div class="me-arrows">
+          <button class="me-arrow" type="button" aria-label="Назад" data-me-rail-prev><svg aria-hidden="true"><use href="#me-i-left"/></svg></button>
+          <button class="me-arrow" type="button" aria-label="Вперёд" data-me-rail-next><svg aria-hidden="true"><use href="#me-i-arrow"/></svg></button>
+        </div>
+      </div>
+    </div>
+    <ul class="me-rail me-reviews__rail" data-me-rail>
+      <li class="me-review"><div class="me-review__stars" aria-label="5 из 5"><svg><use href="#me-i-star"/></svg><svg><use href="#me-i-star"/></svg><svg><use href="#me-i-star"/></svg><svg><use href="#me-i-star"/></svg><svg><use href="#me-i-star"/></svg></div><blockquote>Занимаемся здесь больше года. Отличные тренеры, лояльные руководство и администраторы. Ходят оба ребёнка сюда в разные возрастные группы, на секцию самбо. Прекрасный тренерский состав, вкладывают всю душу в тренировки.</blockquote><p class="me-review__who"><span>М</span>Михаил М.</p></li>
+      <li class="me-review"><div class="me-review__stars" aria-label="5 из 5"><svg><use href="#me-i-star"/></svg><svg><use href="#me-i-star"/></svg><svg><use href="#me-i-star"/></svg><svg><use href="#me-i-star"/></svg><svg><use href="#me-i-star"/></svg></div><blockquote>Прекрасный зал и отличная команда тренеров!!! Адекватный ценник за тренировки. Если бы не пришлось переехать, продолжил бы тренироваться с огромным удовольствием. Лёха, тренер по ММА, — отличный человек и мастер своего дела!</blockquote><p class="me-review__who"><span>Е</span>Евгений</p></li>
+      <li class="me-review"><div class="me-review__stars" aria-label="5 из 5"><svg><use href="#me-i-star"/></svg><svg><use href="#me-i-star"/></svg><svg><use href="#me-i-star"/></svg><svg><use href="#me-i-star"/></svg><svg><use href="#me-i-star"/></svg></div><blockquote>Хорошее место. Сын занимается уже второй год вольной борьбой. Ребёнку всё нравится. Я тоже довольна. Тренеры профессионалы. Спасибо.</blockquote><p class="me-review__who"><span>И</span>Ибда М.</p></li>
+      <li class="me-review"><div class="me-review__stars" aria-label="5 из 5"><svg><use href="#me-i-star"/></svg><svg><use href="#me-i-star"/></svg><svg><use href="#me-i-star"/></svg><svg><use href="#me-i-star"/></svg><svg><use href="#me-i-star"/></svg></div><blockquote>Крутой клуб!!! Хороший зал. Тренер Камил — отличный тренер и мужик, подход имеет к каждому будущему чемпиону!!!</blockquote><p class="me-review__who"><span>А</span>Александр М.</p></li>
+      <li class="me-review"><div class="me-review__stars" aria-label="5 из 5"><svg><use href="#me-i-star"/></svg><svg><use href="#me-i-star"/></svg><svg><use href="#me-i-star"/></svg><svg><use href="#me-i-star"/></svg><svg><use href="#me-i-star"/></svg></div><blockquote>Хорошая школа. Отличные занятия каратэ, тренер Хасанов для детей как отец родной, очень авторитетный.</blockquote><p class="me-review__who"><span>N</span>Natalia L.</p></li>
+      <li class="me-review"><div class="me-review__stars" aria-label="5 из 5"><svg><use href="#me-i-star"/></svg><svg><use href="#me-i-star"/></svg><svg><use href="#me-i-star"/></svg><svg><use href="#me-i-star"/></svg><svg><use href="#me-i-star"/></svg></div><blockquote>Занимаемся уже давно. Ребёнку очень нравится, ребята молодцы.</blockquote><p class="me-review__who"><span>В</span>Валерий З.</p></li>
+      <li class="me-review"><div class="me-review__stars" aria-label="5 из 5"><svg><use href="#me-i-star"/></svg><svg><use href="#me-i-star"/></svg><svg><use href="#me-i-star"/></svg><svg><use href="#me-i-star"/></svg><svg><use href="#me-i-star"/></svg></div><blockquote>Немного помпезно, но далее видно, что это имеет смысл.</blockquote><p class="me-review__who"><span>В</span>Ваха И.</p></li>
+      <li class="me-review"><div class="me-review__stars" aria-label="5 из 5"><svg><use href="#me-i-star"/></svg><svg><use href="#me-i-star"/></svg><svg><use href="#me-i-star"/></svg><svg><use href="#me-i-star"/></svg><svg><use href="#me-i-star"/></svg></div><blockquote>Растут чемпионы!</blockquote><p class="me-review__who"><span>К</span>Камарридин Х.</p></li>
+      <li class="me-review"><div class="me-review__stars" aria-label="5 из 5"><svg><use href="#me-i-star"/></svg><svg><use href="#me-i-star"/></svg><svg><use href="#me-i-star"/></svg><svg><use href="#me-i-star"/></svg><svg><use href="#me-i-star"/></svg></div><blockquote>Отличные тренера. Всё супер.</blockquote><p class="me-review__who"><span>Р</span>Роман Карпунин</p></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ================= ПАРТНЁРЫ ================= -->
+<section class="me-section--tight me-partners" aria-label="Партнёры">
+  <div class="me-wrap me-partners__row">
+    <img src="https://static.tildacdn.com/tild3238-3466-4438-b933-623237306339/Rosgosstrah_logo-2.png" alt="Росгосстрах" loading="lazy">
+    <img src="https://static.tildacdn.com/tild3435-6562-4735-b464-646533313864/logo-bf-new-2_.png" alt="Партнёр" loading="lazy">
+    <img src="https://static.tildacdn.com/tild6330-3232-4030-a238-373364373535/rocky.png" alt="Rocky" loading="lazy">
+    <img src="https://static.tildacdn.com/tild3938-6232-4636-a233-323930336564/logo-red-3.png" alt="Партнёр" loading="lazy">
+  </div>
+</section>
+
+</main>
+</div>
+<script>
+/* Главная: hero-«постер» с ударной сменой направлений + плавающий боец в списке направлений */
+(function () {
+  if (window.__meHome) return;
+  window.__meHome = true;
+  var root = document;
+
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  var EASE_OUT = 'cubic-bezier(0.23, 1, 0.32, 1)';
+  var EASE_IN_OUT = 'cubic-bezier(0.77, 0, 0.175, 1)';
+  var SHADOW = 'drop-shadow(0 30px 60px rgba(0,0,0,0.65))';
+
+  /* =====================================================================
+     HERO
+     ===================================================================== */
+  var hero = root.querySelector('[data-me-hero]');
+  if (hero) (function () {
+    var wordEl = hero.querySelector('[data-me-word]');
+    var ring = hero.querySelector('[data-me-ring]');
+    var slash = hero.querySelector('[data-me-slash]');
+    var fightersWrap = hero.querySelector('[data-me-fighters]');
+    var fighters = Array.prototype.slice.call(fightersWrap.querySelectorAll('img'));
+    var tabsWrap = hero.querySelector('[data-me-tabs]');
+    var tabs = Array.prototype.slice.call(tabsWrap.querySelectorAll('[role="tab"]'));
+    var infos = Array.prototype.slice.call(hero.querySelectorAll('.me-hero__info'));
+    var stage = hero.querySelector('.me-hero__stage');
+    var current = 0;
+    var busy = false;
+
+    /* -- Build the giant word as per-letter spans and fit it to the stage -- */
+    function buildWord(text) {
+      wordEl.innerHTML = '';
+      text.split('|').forEach(function (line) {
+        var ln = document.createElement('span');
+        ln.className = 'ln';
+        Array.prototype.forEach.call(line, function (c) {
+          var s = document.createElement('span');
+          s.className = 'ch';
+          s.textContent = c === ' ' ? ' ' : c;
+          ln.appendChild(s);
+        });
+        wordEl.appendChild(ln);
+      });
+      fitWord();
+      return wordEl.querySelectorAll('.ch');
+    }
+    function fitWord() {
+      var lines = wordEl.querySelectorAll('.ln');
+      if (!lines.length) return;
+      wordEl.style.fontSize = '100px';
+      var widest = 0;
+      lines.forEach(function (l) {
+        l.style.display = 'inline-block';
+        widest = Math.max(widest, l.getBoundingClientRect().width);
+        l.style.display = '';
+      });
+      var cs = getComputedStyle(wordEl);
+      var availW = wordEl.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+      var mobile = window.innerWidth <= 960;
+      var availH = (mobile ? window.innerWidth * 0.78 : hero.clientHeight * 0.66) / (lines.length * 0.8);
+      var size = Math.min(100 * availW / widest, availH, mobile ? 9999 : 420);
+      wordEl.style.fontSize = Math.floor(size) + 'px';
+    }
+
+    /* -- Select tab / info -- */
+    function setTab(i) {
+      tabs.forEach(function (t, k) {
+        var on = k === i;
+        t.setAttribute('aria-selected', String(on));
+        t.tabIndex = on ? 0 : -1;
+      });
+      var t = tabs[i];
+      var l = t.offsetLeft - tabsWrap.clientWidth / 2 + t.clientWidth / 2;
+      tabsWrap.scrollTo({ left: l, behavior: reduce ? 'auto' : 'smooth' });
+      infos.forEach(function (el, k) { el.hidden = k !== i; el.classList.toggle('is-active', k === i); });
+      if (!reduce && infos[i]) infos[i].animate(
+        [{ opacity: 0, transform: 'translateY(12px)' }, { opacity: 1, transform: 'none' }],
+        { duration: 520, delay: 180, easing: EASE_OUT, fill: 'backwards' }
+      );
+    }
+
+    /* -- Entrance of letters: slam in from scale + blur -- */
+    function slamIn(chars, delay) {
+      Array.prototype.forEach.call(chars, function (c, k) {
+        c.animate([
+          { opacity: 0, transform: 'translateY(38%) scale(1.3)', filter: 'blur(14px)' },
+          { opacity: 1, transform: 'none', filter: 'blur(0px)' }
+        ], { duration: 820, delay: delay + k * 38, easing: EASE_OUT, fill: 'backwards' });
+      });
+    }
+
+    function impact(delay) {
+      if (ring) ring.animate([
+        { opacity: 0.95, transform: 'scale(0.5)' },
+        { opacity: 0, transform: 'scale(1.18)' }
+      ], { duration: 1100, delay: delay, easing: EASE_OUT });
+      if (stage) stage.animate([
+        { transform: 'translate(0,0)' },
+        { transform: 'translate(5px,-3px)' },
+        { transform: 'translate(-4px,2px)' },
+        { transform: 'translate(2px,-1px)' },
+        { transform: 'translate(0,0)' }
+      ], { duration: 280, delay: delay, easing: 'linear' });
+    }
+
+    function goTo(i, dir) {
+      i = (i + tabs.length) % tabs.length;
+      if (i === current || busy) return;
+      var prevIdx = current;
+      current = i;
+      setTab(i);
+
+      if (reduce) {
+        fighters.forEach(function (f, k) { f.classList.toggle('is-active', k === i); });
+        buildWord(tabs[i].dataset.word);
+        return;
+      }
+      busy = true;
+      dir = dir || (i > prevIdx ? 1 : -1);
+
+      /* 1. old letters scatter up */
+      var oldChars = wordEl.querySelectorAll('.ch');
+      var outDur = 260;
+      Array.prototype.forEach.call(oldChars, function (c, k) {
+        c.animate([
+          { opacity: 1, transform: 'none', filter: 'blur(0px)' },
+          { opacity: 0, transform: 'translateY(-26%) scale(0.94)', filter: 'blur(8px)' }
+        ], { duration: outDur, delay: k * 14, easing: EASE_OUT, fill: 'forwards' });
+      });
+
+      /* 2. red slash sweeps across */
+      if (slash) slash.animate([
+        { clipPath: dir > 0 ? 'polygon(0% 0%, 0% 0%, -20% 100%, -20% 100%)' : 'polygon(120% 0%, 120% 0%, 100% 100%, 100% 100%)' },
+        { clipPath: 'polygon(0% 0%, 120% 0%, 100% 100%, -20% 100%)', offset: 0.5 },
+        { clipPath: dir > 0 ? 'polygon(120% 0%, 120% 0%, 100% 100%, 100% 100%)' : 'polygon(0% 0%, 0% 0%, -20% 100%, -20% 100%)' }
+      ], { duration: 560, easing: EASE_IN_OUT, composite: 'replace' });
+
+      /* 3. fighters swap */
+      var oldF = fighters[prevIdx], newF = fighters[i];
+      oldF.animate([
+        { opacity: 1, transform: 'none', filter: 'blur(0px) ' + SHADOW },
+        { opacity: 0, transform: 'translateX(' + (-6 * dir) + '%) scale(0.97)', filter: 'blur(10px) ' + SHADOW }
+      ], { duration: 340, easing: EASE_OUT, fill: 'forwards' }).onfinish = function () {
+        oldF.classList.remove('is-active');
+        oldF.getAnimations().forEach(function (a) { a.cancel(); });
+      };
+      newF.classList.add('is-active');
+      newF.animate([
+        { opacity: 0, transform: 'translateX(' + (9 * dir) + '%) scale(1.05)', filter: 'blur(12px) ' + SHADOW },
+        { opacity: 1, transform: 'none', filter: 'blur(0px) ' + SHADOW }
+      ], { duration: 900, delay: 200, easing: EASE_OUT, fill: 'backwards' });
+
+      /* 4. new word slams in, with ring + micro-shake on impact */
+      setTimeout(function () {
+        var chars = buildWord(tabs[i].dataset.word);
+        slamIn(chars, 0);
+        impact(260);
+        setTimeout(function () { busy = false; }, 420);
+      }, outDur + 40);
+    }
+
+    /* -- Controls -- */
+    tabs.forEach(function (t, k) {
+      t.addEventListener('click', function () { goTo(k); });
+      t.addEventListener('keydown', function (e) {
+        if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+          e.preventDefault();
+          var n = (k + (e.key === 'ArrowRight' ? 1 : -1) + tabs.length) % tabs.length;
+          busy = false; goTo(n); tabs[n].focus();
+        }
+      });
+    });
+    var prevBtn = hero.querySelector('[data-me-prev]');
+    var nextBtn = hero.querySelector('[data-me-next]');
+    if (prevBtn) prevBtn.addEventListener('click', function () { goTo(current - 1, -1); });
+    if (nextBtn) nextBtn.addEventListener('click', function () { goTo(current + 1, 1); });
+
+    /* Swipe on touch */
+    var sx = null, sy = null;
+    hero.addEventListener('touchstart', function (e) { sx = e.touches[0].clientX; sy = e.touches[0].clientY; }, { passive: true });
+    hero.addEventListener('touchend', function (e) {
+      if (sx === null) return;
+      var dx = e.changedTouches[0].clientX - sx, dy = e.changedTouches[0].clientY - sy;
+      if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.4 && !e.target.closest('[data-me-tabs]')) goTo(current + (dx < 0 ? 1 : -1), dx < 0 ? 1 : -1);
+      sx = null;
+    }, { passive: true });
+
+    /* -- Autoplay: driven by the progress bar's CSS animation, so pause = pause -- */
+    if (reduce) {
+      hero.classList.add('is-static');
+    } else {
+      hero.style.setProperty('--me-dur', '6500ms');
+      tabsWrap.addEventListener('animationend', function (e) {
+        if (e.animationName === 'me-progress') goTo(current + 1, 1);
+      });
+      var hovering = false, focused = false, offscreen = false;
+      function syncPause() { hero.classList.toggle('is-paused', hovering || focused || offscreen); }
+      var ui = hero.querySelector('.me-hero__ui');
+      if (finePointer) {
+        hero.querySelector('.me-hero__panel').addEventListener('pointerenter', function () { hovering = true; syncPause(); });
+        hero.querySelector('.me-hero__panel').addEventListener('pointerleave', function () { hovering = false; syncPause(); });
+        hero.querySelector('.me-hero__bar').addEventListener('pointerenter', function () { hovering = true; syncPause(); });
+        hero.querySelector('.me-hero__bar').addEventListener('pointerleave', function () { hovering = false; syncPause(); });
+      }
+      ui.addEventListener('focusin', function () { focused = true; syncPause(); });
+      ui.addEventListener('focusout', function () { focused = false; syncPause(); });
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver(function (en) { offscreen = !en[0].isIntersecting; syncPause(); }, { threshold: 0.25 }).observe(hero);
+      }
+    }
+
+    /* -- Pointer parallax: word and fighter move against each other -- */
+    if (finePointer && !reduce) {
+      var tx = 0, ty = 0, cx = 0, cy = 0, raf = null;
+      function loop() {
+        cx += (tx - cx) * 0.08; cy += (ty - cy) * 0.08;
+        wordEl.style.transform = 'translate3d(' + (-cx * 18).toFixed(2) + 'px,' + (-cy * 10).toFixed(2) + 'px,0)';
+        fightersWrap.style.transform = 'translate3d(' + (cx * 26).toFixed(2) + 'px,' + (cy * 12).toFixed(2) + 'px,0)';
+        if (Math.abs(tx - cx) > 0.001 || Math.abs(ty - cy) > 0.001) raf = requestAnimationFrame(loop); else raf = null;
+      }
+      hero.addEventListener('pointermove', function (e) {
+        var r = hero.getBoundingClientRect();
+        tx = (e.clientX - r.left) / r.width - 0.5;
+        ty = (e.clientY - r.top) / r.height - 0.5;
+        if (!raf) raf = requestAnimationFrame(loop);
+      });
+      hero.addEventListener('pointerleave', function () { tx = 0; ty = 0; if (!raf) raf = requestAnimationFrame(loop); });
+    }
+
+    /* -- Resize -- */
+    var rt;
+    window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(fitWord, 120); });
+
+    /* -- First paint: the entrance -- */
+    var firstChars = buildWord(tabs[0].dataset.word);
+    if (!reduce) {
+      hero.classList.add('is-intro');
+      Array.prototype.forEach.call(firstChars, function (c) { c.style.opacity = '0'; });
+      fighters[0].style.opacity = '0';
+      var start = function () {
+        requestAnimationFrame(function () {
+          requestAnimationFrame(function () {
+            hero.classList.remove('is-intro');
+            fitWord();
+            Array.prototype.forEach.call(firstChars, function (c) { c.style.opacity = ''; });
+            slamIn(firstChars, 380);
+            fighters[0].style.opacity = '';
+            fighters[0].animate([
+              { opacity: 0, transform: 'translateY(6%) scale(1.06)', filter: 'blur(14px) ' + SHADOW },
+              { opacity: 1, transform: 'none', filter: 'blur(0px) ' + SHADOW }
+            ], { duration: 1200, delay: 560, easing: EASE_OUT, fill: 'backwards' });
+            impact(760);
+          });
+        });
+      };
+      if (document.fonts && document.fonts.ready) {
+        var done = false;
+        document.fonts.ready.then(function () { if (!done) { done = true; start(); } });
+        setTimeout(function () { if (!done) { done = true; start(); } }, 900);
+      } else start();
+    }
+  })();
+
+  /* =====================================================================
+     DISCIPLINES: a fighter follows the cursor over the list
+     ===================================================================== */
+  var disc = root.querySelector('[data-me-disc]');
+  if (disc && finePointer && !reduce) (function () {
+    var img = disc.querySelector('[data-me-float]');
+    var list = disc.querySelector('.me-disc__list');
+    var x = 0, y = 0, cx = 0, cy = 0, raf = null, on = false;
+    var cache = {};
+    disc.querySelectorAll('[data-img]').forEach(function (a) {
+      var pre = new Image(); pre.src = a.dataset.img; cache[a.dataset.img] = pre;
+      a.addEventListener('pointerenter', function () {
+        if (img.getAttribute('src') !== a.dataset.img) {
+          img.src = a.dataset.img;
+          img.animate([{ transform: 'translate3d(' + cx + 'px,' + cy + 'px,0) rotate(-6deg) scale(0.9)' }, { transform: 'translate3d(' + cx + 'px,' + cy + 'px,0) rotate(0) scale(1)' }], { duration: 400, easing: EASE_OUT });
+        }
+      });
+    });
+    function loop() {
+      cx += (x - cx) * 0.14; cy += (y - cy) * 0.14;
+      img.style.transform = 'translate3d(' + cx.toFixed(1) + 'px,' + cy.toFixed(1) + 'px,0)';
+      raf = on || Math.abs(x - cx) > 0.5 ? requestAnimationFrame(loop) : null;
+    }
+    list.addEventListener('pointermove', function (e) {
+      x = e.clientX + 40; y = e.clientY - 300;
+      if (!on) { cx = x; cy = y; }
+      on = true; img.classList.add('is-on');
+      if (!raf) raf = requestAnimationFrame(loop);
+    });
+    list.addEventListener('pointerleave', function () { on = false; img.classList.remove('is-on'); });
+    window.addEventListener('scroll', function () { if (on) { on = false; img.classList.remove('is-on'); } }, { passive: true });
+  })();
+})();
+
+</script>
